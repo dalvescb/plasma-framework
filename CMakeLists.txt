@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
 
+set(REQUIRED_QT_VERSION 5.15.0)
 set(KF_VERSION "5.83.0") # handled by release scripts
 set(KF_DEP_VERSION "5.82.0") # handled by release scripts
 project(Plasma VERSION ${KF_VERSION})
 
 # ECM setup
 include(FeatureSummary)
-find_package(ECM 5.82.0  NO_MODULE)
+find_package(ECM {KF_DEP_VERSION}  NO_MODULE)
 set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://commits.kde.org/extra-cmake-modules")
 feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
@@ -37,8 +38,6 @@ ecm_setup_version(PROJECT
                   SOVERSION 5)
 
 ################# now find all used packages #################
-
-set (REQUIRED_QT_VERSION 5.15.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Quick Gui Sql Qml Svg QuickControls2)
 
