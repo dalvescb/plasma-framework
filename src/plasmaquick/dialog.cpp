@@ -828,6 +828,7 @@ Dialog::Dialog(QQuickItem *parent)
         d->slotWindowPositionChanged();
     });
 
+    /*
     // Given dialogs are skip task bar and don't have a decoration
     // minimizing them using e.g. "minimize all" should just close them
     connect(this, &QWindow::windowStateChanged, this, [this](Qt::WindowState newState) {
@@ -835,7 +836,7 @@ Dialog::Dialog(QQuickItem *parent)
             setVisible(false);
         }
     });
-
+    */
     connect(this, &QWindow::visibleChanged, this, &Dialog::visibleChangedProxy);
     connect(this, SIGNAL(visibleChanged(bool)), this, SLOT(updateInputShape()));
     connect(this, SIGNAL(outputOnlyChanged()), this, SLOT(updateInputShape()));
@@ -1204,7 +1205,7 @@ void Dialog::focusOutEvent(QFocusEvent *ev)
             || qobject_cast<const ConfigView *>(focusWindow);
 
         if (viewClicked || (!parentHasFocus && !childHasFocus)) {
-            setVisible(false);
+          //    setVisible(false);
             Q_EMIT windowDeactivated();
         }
     }
@@ -1442,9 +1443,10 @@ void Dialog::setVisible(bool visible)
         if (visible && d->visualParent) {
             setPosition(popupPosition(d->visualParent, size()));
         }
-
+        /*
         // Bug 381242: Qt remembers minimize state and re-applies it when showing
         setWindowStates(windowStates() & ~Qt::WindowMinimized);
+        */
         QQuickWindow::setVisible(visible);
         // signal will be emitted and proxied from the QQuickWindow code
     } else {
